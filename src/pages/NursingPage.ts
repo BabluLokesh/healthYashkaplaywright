@@ -40,7 +40,6 @@ export default class NursingPage {
   async verifyPatientOverviewFromPastDaysRecords(date: string, patientName: string, ): Promise<void> {
     await this.nursingModuleLink.click();
     await this.pastDaysTab.click();
-    //await this.fromDateInput.fill(date);
     await this.fromDateInput.fill(date);
     await this.okButton.click();
 
