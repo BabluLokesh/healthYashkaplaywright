@@ -33,13 +33,13 @@ type TestData = {
   };
 };
 
-// type PatientNames = {
-//   outpatientName: string;
-//   admittedPatient: string;
-// };
+type PatientNames = {
+  outpatientName: string;
+  admittedPatient: string;
+};
 
 const testData = readJSON<TestData>('Data/testData.json');
-// const patientNames = readJSON<PatientNames>('Data/patientName.json');
+const patientNames = readJSON<PatientNames>('Data/patientName.json');
 
 test.describe('Yaksha Health App – End-to-End Use Cases', () => {
   test.beforeEach(async ({ page }) => {
@@ -60,15 +60,15 @@ test.describe('Yaksha Health App – End-to-End Use Cases', () => {
   //   await dispensary.verifyAndReturnDispensaryToOtpText(
   //     patientNames.outpatientName
   //   );
-  // });
+  // }); 
 
-  // test('TC3 – Verify Navigation to Patient Overview from Past Days Records', async ({ page }) => {
-  //   const nursing = new NursingPage(page);
-  //   await nursing.verifyPatientOverviewFromPastDaysRecords(
-  //     testData.pastDaysFromDate,
-  //     patientNames.outpatientName
-  //   );
-  // });
+  test('TC3 – Verify Navigation to Patient Overview from Past Days Records', async ({ page }) => {
+    const nursing = new NursingPage(page);
+    await nursing.verifyPatientOverviewFromPastDaysRecords(
+      testData.pastDaysFromDate,
+      patientNames.outpatientName
+    );
+  });
 
   // test('TC4 – Verify File Upload for Patient Record', async ({ page }) => {
   //   const nursing = new NursingPage(page);

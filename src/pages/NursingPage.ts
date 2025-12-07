@@ -1,11 +1,11 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator, expect,  } from '@playwright/test';
 
 export default class NursingPage {
   readonly page: Page;
 
   private nursingModuleLink: Locator;
   private pastDaysTab: Locator;
-  private fromDateInput: Locator;
+  private fromDateInput: Locator; 
   private okButton: Locator;
   private patientSearchInput: Locator;
   private overviewButton: Locator;
@@ -16,13 +16,15 @@ export default class NursingPage {
   private submitButton: Locator;
   private fileUploadToast: Locator;
 
+  
+
   constructor(page: Page) {
     this.page = page;
-    this.nursingModuleLink = page.locator('a[href*="Nursing"]');           // TODO
+    this.nursingModuleLink = page.locator('text=Nursing');           // TODO
     this.pastDaysTab = page.locator('text=Past Days');                     // TODO
-    this.fromDateInput = page.locator('#FromDate');                        // TODO
+    this.fromDateInput = page.locator("(//input[@type='date'])[1]");                  // TODO
     this.okButton = page.locator('button:has-text("OK")');                 // TODO
-    this.patientSearchInput = page.locator('#txtSearch');                  // TODO
+    this.patientSearchInput = page.locator('#quickFilterInput');                  // TODO
     this.overviewButton = page.locator('a:has-text("Overview")');          // TODO
 
     this.uploadFilesLink = page.locator('a:has-text("Upload Files")');     // TODO
@@ -32,12 +34,13 @@ export default class NursingPage {
     this.fileUploadToast = page.locator('text=File Uploaded');             // TODO
   }
 
-  /**
+  /** 
    * TC3 – Verify Navigation to Patient Overview from Past Days Records.
    */
-  async verifyPatientOverviewFromPastDaysRecords(date: string, patientName: string): Promise<void> {
+  async verifyPatientOverviewFromPastDaysRecords(date: string, patientName: string, ): Promise<void> {
     await this.nursingModuleLink.click();
     await this.pastDaysTab.click();
+    //await this.fromDateInput.fill(date);
     await this.fromDateInput.fill(date);
     await this.okButton.click();
 
@@ -54,8 +57,8 @@ export default class NursingPage {
   async verifyFileUpload(date: string, patientName: string, filePath: string): Promise<void> {
     await this.nursingModuleLink.click();
     await this.pastDaysTab.click();
-    await this.fromDateInput.fill(date);
-    await this.okButton.click();
+     await this.fromDateInput.fill(date);
+     await this.okButton.click();
 
     await this.patientSearchInput.fill(patientName);
     await this.patientSearchInput.press('Enter');
