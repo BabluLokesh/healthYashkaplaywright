@@ -4,15 +4,17 @@ export default class DispensaryPage {
   readonly page: Page;
 
   private readonly dispensaryLink: Locator;
+  private readonly mainDispensaryLink: Locator;
   private readonly dispensaryInfoIcon: Locator;
   private readonly dispensaryToolTip: Locator;
 
   constructor(page: Page) {
     this.page = page;
     // Example – define in constructor
-    this.dispensaryLink = page.locator('YOUR_LOCATOR_HERE');
-    this.dispensaryInfoIcon = page.locator('YOUR_LOCATOR_HERE');
-    this.dispensaryToolTip = page.locator('YOUR_LOCATOR_HERE');
+    this.dispensaryLink = page.locator('a[href="#/Dispensary"]');
+    this.mainDispensaryLink = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-activate-dispensary/div/div/div[2]/div/div[1]/a");
+    this.dispensaryInfoIcon = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/span/i");
+    this.dispensaryToolTip = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/div");
 
   }
 
@@ -26,6 +28,7 @@ export default class DispensaryPage {
 
     // STEP 1: Click on Dispensary link
     await this.dispensaryLink.click();
+    await this.mainDispensaryLink.click();
 
     // STEP 2: Hover over right-pointing icon
     await this.dispensaryInfoIcon.hover();
