@@ -1,3 +1,51 @@
 # healthYashkaplaywright
 yashkahealth app 
 website link: https://healthapp.yaksha.com/Account/Logout
+
+
+// {
+//     "ValidLogin": [
+//         {
+//             "ValidUserName": "admin"
+//         },
+//         {
+//             "ValidPassword": "pass123"
+//         },
+//         {
+//             "loginUrl": "https://healthapp.yaksha.com"
+//         }
+//     ],
+//     "DateRange": [
+//         {
+//             "FromDate": "01-01-2020"
+//         },
+//         {
+//             "ToDate": "11-11-2024"
+//         }
+//     ],
+//     "InvalidLogin": [
+//         {
+//             "InvalidUserName": "adsfsd"
+//         },
+//         {
+//             "InvalidPassword": "asfasdas"
+//         }
+//     ],
+//     "PatientNames": [
+//         {
+//             "Patient1": "FirstNov5 LastNov5"
+//         },
+//         {
+//             "Patient2": "TestFirst TestLast"
+//         },
+//         {
+//             "Patient3": "SS Ram 123312"
+//         },
+//         {
+//             "Patient4": "First123 Ss23456 Last3657958487"
+//         },
+//         {
+//             "Patient5": "Devid189 Roy189"
+//         }
+//     ]
+// }

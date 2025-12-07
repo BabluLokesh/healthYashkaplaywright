@@ -9,10 +9,10 @@ export default class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.usernameInput = page.locator('#username');               // TODO
+    this.usernameInput = page.locator('#username_id');               // TODO
     this.passwordInput = page.locator('#password');               // TODO
     this.loginButton = page.locator('button[type="submit"]');     // TODO
-    this.adminTag = page.locator('text=Admin');                   // TODO
+    this.adminTag = page.locator('.username.username-hide-on-mobile');                   // TODO
   }
 
   /**

@@ -1,0 +1,18 @@
+{
+    "loginUrl": "https://healthapp.yaksha.com",
+    "username": "admin",
+    "password": "pass123",
+    "pastDaysFromDate": "01-01-2020",
+    "labFromDate": "11-11-2024",
+    "uploadFilePath": "Data/files/sample.pdf",
+    "bnaLedgerName": "BNA Ledger 1",
+    "priceCode": "PC-101",
+    "tooltipText": "This is a tooltip message",
+    "quotation": {
+        "subject": "Medical Equipment Quotation",
+        "description": "Quotation for lab devices",
+        "vendor": "MedVendor Pvt Ltd",
+        "itemName": "Blood Analyzer",
+        "quantity": "10"
+    }
+}

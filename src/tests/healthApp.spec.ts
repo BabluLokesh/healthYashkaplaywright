@@ -33,13 +33,13 @@ type TestData = {
   };
 };
 
-type PatientNames = {
-  outpatientName: string;
-  admittedPatient: string;
-};
+// type PatientNames = {
+//   outpatientName: string;
+//   admittedPatient: string;
+// };
 
 const testData = readJSON<TestData>('Data/testData.json');
-const patientNames = readJSON<PatientNames>('Data/patientName.json');
+// const patientNames = readJSON<PatientNames>('Data/patientName.json');
 
 test.describe('Yaksha Health App – End-to-End Use Cases', () => {
   test.beforeEach(async ({ page }) => {
