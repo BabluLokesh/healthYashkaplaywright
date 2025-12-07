@@ -53,29 +53,36 @@ test.describe('Yaksha Health App – End-to-End Use Cases', () => {
 
 
   //done
-  // test('TC1 – Verify login with valid credentials', async ({ page }) => {
-  //   await expect(page).toHaveTitle(/.*/);
-  // });
+  test('TC1 – Verify login with valid credentials', async ({ page }) => {
+    await expect(page).toHaveTitle(/.*/);
+  });
 
 
-  // code update it was worng as per sereen shot descriptio
+  // done
   // test('TC2 – Verify Outpatient Checkout Process', async ({ page }) => {
   //   const dispensary = new DispensaryPage(page);
   //   await dispensary.verifyAndReturnDispensaryToolTipText();
   // });
 
 
-  // code update it was worng as per sereen shot descriptio
+  // done
   // test('TC3 – Verify Navigation to Patient Overview from Past Days Records', async ({ page }) => {
   //   const nursing = new NursingPage(page);
-  //   await nursing.verifyPatientOverviewFromPastDaysRecords();
+  //   await nursing.verifyPatientOverviewFromPastDaysRecords(
+  //     testData.pastDaysFromDate,
+  //     patientNames.outpatientName
+  //   )
   // });
 
 
-  // code update it was worng as per sereen shot descriptio
+  // done
   // test('TC4 – Verify File Upload for Patient Record', async ({ page }) => {
   //   const nursing = new NursingPage(page);
-  //   await nursing.verifyfileupload();
+  //   await nursing.verifyfileupload(
+  //     testData.pastDaysFromDate,
+  //     patientNames.outpatientName,
+  //     testData.uploadFilePath
+  //   );
   // });
 
 
@@ -117,11 +124,11 @@ test.describe('Yaksha Health App – End-to-End Use Cases', () => {
   //   await subStore.captureScreenshotOfInventoryRequisitionSection();
   // });
 
-  // code update it was worng as per sereen shot descriptio
-  // test('TC8 – Verify tooltip for Star indicator', async ({ page }) => {
-  //   const maternity = new MaternityPage(page);
-  //   await maternity.getTooltipTextFromStar();
-  // });
+  // done
+  test('TC8 – Verify tooltip for Star indicator', async ({ page }) => {
+    const maternity = new MaternityPage(page);
+    await maternity.getTooltipTextFromStar();
+  });
 
   // code update it was worng as per sereen shot descriptio
   // test('TC9 – Verify Request for Quotation Generation', async ({ page }) => {
