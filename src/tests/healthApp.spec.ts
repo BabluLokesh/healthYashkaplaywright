@@ -79,14 +79,14 @@ test.describe('Yaksha Health App – End-to-End Use Cases', () => {
   // });
 
 
-  // code update it was worng as per sereen shot descriptio
+  // done
   // test('TC5 – Verify Activation of BNA A/C Ledger', async ({ page }) => {
   //   const accounting = new AccountingPage(page);
   //   await accounting.verifyActivationLedger();
   // });
 
 
-  // code update it was worng as per sereen shot descriptio
+  // done
   // test('TC6 – Verify Deactivation of BNA A/C Ledger', async ({ page }) => {
   //   const accounting = new AccountingPage(page);
   //   await accounting.verifyDeactivationLedger();

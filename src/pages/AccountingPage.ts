@@ -19,15 +19,15 @@ export default class AccountingPage {
     this.page = page;
 
     this.accounting = {
-      accountingLink: page.locator(''),
+      accountingLink: page.locator('a[href="#/Accounting"]'),
       reports: page.locator(''),
       dailyTransaction: page.locator(''),
       fiscalYear: page.locator(''),
-      load: page.locator(''),
-      settings: page.locator(''),
-      searchBar: page.locator(''),
-      activate: page.locator(''),
-      deactivate: page.locator(''),
+      load: page.locator('.ag-center-cols-container .ag-row'),
+      settings: page.locator('.page-breadcrumb a[href="#/Accounting/Settings"]'),
+      searchBar: page.locator('#quickFilterInput'),
+      activate: page.getByText('Activate'),
+      deactivate: page.getByText('Deactivate'),
     };
   }
 
@@ -45,19 +45,22 @@ export default class AccountingPage {
  */
   async verifyActivationLedger(): Promise<void> {
     try {
-      // Step 1: Navigate to the Accounting module
+
       await this.accounting.accountingLink.click();
-
-      // Step 2: Open Settings and search for the "BANK A/c #" ledger
+      await this.page.waitForLoadState('networkidle');
       await this.accounting.settings.click();
+      await this.accounting.searchBar.waitFor({ state: 'visible' });
       await this.accounting.searchBar.fill('BANK A/c #');
-      await this.accounting.load.click(); // if there's a Load/Go button
+      await this.accounting.searchBar.press('Enter');
+      const activateButton = this.accounting.activate;
+      await activateButton.waitFor({ state: 'visible' });
+      await activateButton.click();
 
-      // Step 3: Trigger activation and confirm dialog
-      const dialogPromise = this.page.waitForEvent('dialog');
-      await this.accounting.activate.click();
-      const dialog = await dialogPromise;
-      await dialog.accept(); // confirm activation
+      this.page.once('dialog', async dialog => {
+        await dialog.accept();
+      });
+
+      expect(this.page.locator('.main-message', { hasText: 'BANK A/C # is now Aactivated.' }));
 
     } catch (error) {
       console.error('Error while verifying activation of ledger:', error);
@@ -81,17 +84,24 @@ export default class AccountingPage {
     try {
       // Step 1: Navigate to Accounting module and open Settings
       await this.accounting.accountingLink.click();
+      await this.page.waitForLoadState('networkidle');
+
       await this.accounting.settings.click();
 
       // Step 2: Search for the specific ledger
+      await this.accounting.searchBar.waitFor({ state: 'visible' });
       await this.accounting.searchBar.fill('Sundry Debtors (Receivables)');
-      await this.accounting.load.click(); // if applicable
+      await this.accounting.searchBar.press('Enter');
 
-      // Steps 3 & 4: Click deactivate and handle confirmation dialog
-      const dialogPromise = this.page.waitForEvent('dialog');
-      await this.accounting.deactivate.click();
-      const dialog = await dialogPromise;
-      await dialog.accept(); // confirm deactivation
+      const deactivateButton = this.accounting.deactivate;
+      await deactivateButton.waitFor({ state: 'visible' });
+      deactivateButton.click();
+
+      this.page.once('dialog', async dialog => {
+        await dialog.accept();
+      });
+
+      expect(this.page.locator('.main-message', { hasText: 'BANK A/C # is now Deactivated.' }));
 
     } catch (error) {
       console.error('Error while verifying deactivation of ledger:', error);
