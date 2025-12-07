@@ -12,10 +12,10 @@ export default class DispensaryPage {
     this.page = page;
     // Example – define in constructor
     this.dispensaryLink = page.locator('a[href="#/Dispensary"]');
-    this.mainDispensaryLink = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-activate-dispensary/div/div/div[2]/div/div[1]/a");
-    this.dispensaryInfoIcon = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/span/i");
-    this.dispensaryToolTip = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/div");
-
+    this.mainDispensaryLink = page.locator('a.report_list', { hasText: 'Main Dispensary' });
+    // page.locator('a:has(i:text("Main Dispensary"))').click();
+    this.dispensaryInfoIcon = page.locator(".page-bar.fixed-top-bar").locator("i.fa-sign-out");
+    this.dispensaryToolTip = page.locator(".modal-content");
   }
 
   /**
