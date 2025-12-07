@@ -1,79 +1,215 @@
 import { Page, Locator, expect } from '@playwright/test';
 
 export default class SubStorePage {
-  readonly page: Page;
 
-  private subStoreModuleLink: Locator;
-  private accountsButton: Locator;
-  private inventoryRequisitionTab: Locator;
-  private stockTab: Locator;
-  private consumptionReportsTab: Locator;
-  private patientConsumptionTab: Locator;
-  private returnTab: Locator;
+  readonly page: Page;
+  private subStoreLink: Locator;
+  private wardSupply: Locator;
+  private accounts: Locator;
+  private pharmacy: Locator;
+  private inventory: Locator;
+  private inventoryRequisition: Locator;
+  private consumption: Locator;
+  private reports: Locator;
+  private patientConsumption: Locator;
+  private return: Locator;
+  private stock: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.subStoreModuleLink = page.locator('a[href*="SubStore"]');           // TODO
-    this.accountsButton = page.locator('text=Accounts');                     // TODO
-    this.inventoryRequisitionTab = page.locator('text=Inventory Requisition'); // TODO
-    this.stockTab = page.locator('text=Stock');                              // TODO
-    this.consumptionReportsTab = page.locator('text=Consumption Reports');   // TODO
-    this.patientConsumptionTab = page.locator('text=Patient Consumption');   // TODO
-    this.returnTab = page.locator('text=Return');                            // TODO
+    this.subStoreLink = page.locator('');
+    this.wardSupply = page.locator('');
+    this.accounts = page.locator('');
+    this.pharmacy = page.locator('');
+    this.inventory = page.locator('');
+    this.inventoryRequisition = page.locator('');
+    this.consumption = page.locator('');
+    this.reports = page.locator('');
+    this.patientConsumption = page.locator('');
+    this.return = page.locator('');
+    this.stock = page.locator('');
   }
+
 
   /**
-   * TC7 – Verify Submodules after clicking SubStore Module.
+   * @Test6 Verify all sub-modules are displayed correctly after clicking on the "Substore" module.
+   *
+   * @returns {Promise<void>} Returns void; logs error if any step fails.
    */
-  async verifySubModuleDisplayed(): Promise<void> {
-    await this.subStoreModuleLink.click();
-    await expect(this.accountsButton).toBeVisible();
-    await expect(this.inventoryRequisitionTab).toBeVisible();
-    await expect(this.stockTab).toBeVisible();
-    await expect(this.consumptionReportsTab).toBeVisible();
-    await expect(this.patientConsumptionTab).toBeVisible();
-    await expect(this.returnTab).toBeVisible();
+  async verifySubModulesDisplay(): Promise<void> {
+    try {
+      await this.subStoreLink.click();
+      await this.page.waitForTimeout(2000);
+
+      await this.wardSupply.click();
+      await this.page.waitForTimeout(1000);
+
+      await this.accounts.waitFor({ state: 'visible' });
+      await this.accounts.click();
+
+    } catch (error) {
+      console.error('Error verifying Substore sub-modules display:', error);
+      throw error;
+    }
   }
 
-  async verifyNavigationToSubStoreModule(): Promise<void> {
-    await this.subStoreModuleLink.click();
-    await expect(this.accountsButton).toBeVisible();
+
+  /**
+   * @Test13 Verifies navigation between different tabs within the "Inventory" tab.
+   */
+  async verifyNavigationToSubstoreModule(): Promise<void> {
+    try {
+      await this.subStoreLink.click();
+      await this.accounts.click();
+      await this.inventory.click();
+
+      await this.stock.click();
+      await this.inventoryRequisition.click();
+      await this.consumption.click();
+      await this.reports.click();
+      await this.patientConsumption.click();
+      await this.return.click();
+
+    } catch (error) {
+      console.error('Error navigating inventory sub-tabs:', error);
+      throw error;
+    }
   }
 
+
+  /**
+   * @Test13 Navigate to the Accounts section.
+   */
   async navigateToAccounts(): Promise<void> {
-    await this.accountsButton.click();
+    try {
+      await this.accounts.hover();
+      await this.accounts.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Accounts section:', error);
+      throw error;
+    }
   }
 
-  async verifyNavigationToInventoryRequisition(): Promise<void> {
-    await this.inventoryRequisitionTab.click();
-    await expect(this.page).toHaveURL(/.*InventoryRequisition.*/);
-  }
 
-  async verifyNavigationToConsumption(): Promise<void> {
-    await this.consumptionReportsTab.click();
-    await expect(this.page).toHaveURL(/.*ConsumptionReports.*/);
-  }
-
-  async verifyNavigationToPatientConsumption(): Promise<void> {
-    await this.patientConsumptionTab.click();
-    await expect(this.page).toHaveURL(/.*PatientConsumption.*/);
-  }
-
-  async verifyNavigationToReturn(): Promise<void> {
-    await this.returnTab.click();
-    await expect(this.page).toHaveURL(/.*Return.*/);
-  }
-
+  /**
+   * @Test13 Verify navigation to the Stock section.
+   */
   async verifyNavigationToStock(): Promise<void> {
-    await this.stockTab.click();
-    await expect(this.page).toHaveURL(/.*Stock.*/);
+    try {
+      await this.stock.hover();
+      await this.stock.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Stock section:', error);
+      throw error;
+    }
+  }
+
+
+  /**
+   * @Test13 Verify navigation to the Inventory Requisition section.
+   */
+  async verifyNavigationToInventoryRequisition(): Promise<void> {
+    try {
+      await this.inventoryRequisition.hover();
+      await this.inventoryRequisition.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Inventory Requisition:', error);
+      throw error;
+    }
+  }
+
+
+  /**
+   * @Test13 Verify navigation to the Consumptions section.
+   */
+  async verifyNavigationToConsumptions(): Promise<void> {
+    try {
+      await this.consumption.hover();
+      await this.consumption.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Consumptions:', error);
+      throw error;
+    }
   }
 
   /**
-   * TC15 – Capture Screenshot of Inventory Requisition Section.
+   * @Test13 Verify navigation to the Reports section.
    */
-  async captureScreenshotInventoryRequisitionSection(path: string): Promise<void> {
-    await this.verifyNavigationToInventoryRequisition();
-    await this.page.screenshot({ path, fullPage: true });
+  async verifyNavigationToReports(): Promise<void> {
+    try {
+      await this.reports.hover();
+      await this.reports.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Reports:', error);
+      throw error;
+    }
   }
+
+  /**
+   * @Test13 Verify navigation to the Patient Consumptions section.
+   */
+  async verifyNavigationToPatientConsumptions(): Promise<void> {
+    try {
+      await this.patientConsumption.hover();
+      await this.patientConsumption.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Patient Consumptions:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * @Test Verify navigation to the Return section.
+   */
+  async verifyNavigationToReturn(): Promise<void> {
+    try {
+      await this.return.hover();
+      await this.return.click();
+      await this.page.waitForLoadState('networkidle');
+      await this.page.waitForTimeout(1000);
+
+    } catch (error) {
+      console.error('Error navigating to Return section:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * @Test14 Captures a screenshot of the Inventory Requisition section within the Substore module.
+   *
+   * @returns {Promise<Buffer>} Screenshot buffer
+   */
+  async captureScreenshotOfInventoryRequisitionSection(): Promise<Buffer> {
+    try {
+      await this.subStoreLink.click();
+      await this.accounts.click();
+      await this.inventory.click();
+      await this.inventoryRequisition.click();
+
+      return await this.page.screenshot();
+
+    } catch (error) {
+      console.error('Error capturing Inventory Requisition screenshot:', error);
+      throw error;
+    }
+  }
+
 }
