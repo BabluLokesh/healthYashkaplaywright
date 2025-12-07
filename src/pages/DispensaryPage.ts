@@ -3,38 +3,47 @@ import { Page, Locator, expect } from '@playwright/test';
 export default class DispensaryPage {
   readonly page: Page;
 
-  private dispensaryModuleLink: Locator;
-  private outPatientTab: Locator;
-  private patientSearchInput: Locator;
-  private patientCheckbox: Locator;
-  private concludeButton: Locator;
-  private confirmCheckoutButton: Locator;
-  private successToast: Locator;
+  private readonly dispensaryLink: Locator;
+  private readonly mainDispensaryLink: Locator;
+  private readonly dispensaryInfoIcon: Locator;
+  private readonly dispensaryToolTip: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.dispensaryModuleLink = page.locator('a[href*="Dispensary"]'); // TODO
-    this.outPatientTab = page.locator('text=OutPatient');             // TODO
-    this.patientSearchInput = page.locator('#txtSearch');             // TODO
-    this.patientCheckbox = page.locator('tbody tr:first-child input[type="checkbox"]'); // TODO
-    this.concludeButton = page.locator('button:has-text("Conclude")'); // TODO
-    this.confirmCheckoutButton = page.locator('button:has-text("Yes")'); // TODO
-    this.successToast = page.locator('text=Checkout Successfully');   // TODO
+    // Example – define in constructor
+    this.dispensaryLink = page.locator('a[href="#/Dispensary"]');
+    this.mainDispensaryLink = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-activate-dispensary/div/div/div[2]/div/div[1]/a");
+    this.dispensaryInfoIcon = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/span/i");
+    this.dispensaryToolTip = page.locator("//html/body/my-app/div/div/div[3]/div[2]/div/div/app-dispensary-main/div[1]/div");
+
   }
 
   /**
    * TC2 – Verify Outpatient Checkout Process.
    */
-  async verifyAndReturnDispensaryToOtpText(patientName: string): Promise<void> {
-    await this.dispensaryModuleLink.click();
-    await this.outPatientTab.click();
-    await this.patientSearchInput.fill(patientName);
-    await this.patientSearchInput.press('Enter');
+  async verifyAndReturnDispensaryToolTipText(): Promise<string> {
+    // Expected tooltip message
+    const expectedTooltipText =
+      'You are currently in Main Dispensary dispensary. To change, you can always click here.';
 
-    await this.patientCheckbox.check();
-    await this.concludeButton.click();
-    await this.confirmCheckoutButton.click();
+    // STEP 1: Click on Dispensary link
+    await this.dispensaryLink.click();
+    await this.mainDispensaryLink.click();
 
-    await expect(this.successToast).toBeVisible();
+    // STEP 2: Hover over right-pointing icon
+    await this.dispensaryInfoIcon.hover();
+
+    // STEP 3: Wait for tooltip to appear
+    await this.dispensaryToolTip.waitFor({ state: 'visible' });
+
+    // STEP 4: Capture tooltip text
+    const actualTooltipText = (await this.dispensaryToolTip.innerText()).trim();
+
+    // STEP 5: Verify tooltip text
+    expect(actualTooltipText).toBe(expectedTooltipText);
+
+    // STEP 6: Return actual tooltip text
+    return actualTooltipText;
   }
+
 }

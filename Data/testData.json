@@ -7,12 +7,9 @@
   "labFromDate": "2024-01-01",
 
   "uploadFilePath": "Data/sample-report.pdf",
-
   "bnaLedgerName": "BNA A/C",
   "priceCode": "PC001",
-
   "tooltipText": "Remember this date",
-
   "quotation": {
     "subject": "Test quotation subject",
     "description": "Test quotation description",
